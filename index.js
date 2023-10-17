@@ -41,8 +41,8 @@ app.post('/api/cadastro', function(req, res){
         console.log('Usuário cadastrado com sucesso');
         res.status(200).send('Usuário cadastrado com sucesso');
     }).catch((err) => {
-        console.log('Erro ao cadastrar usuário: ' + err);
-        res.status(400).send('Erro ao cadastrar usuário: ' + err);
+        console.log('Erro ao cadastrar usuário: usuário já existente ' + err);
+        res.status(400).send('Erro ao cadastrar usuário: usuário já existente' + err);
     });
 });
 
