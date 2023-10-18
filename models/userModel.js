@@ -21,12 +21,4 @@ userModel.pre('save', async function(next){
       }
 });
 
-userModel.methods.comparePassword = async function (candidatePassword) {
-    try {
-      return await bcrypt.compare(candidatePassword, this.password);
-    } catch (err) {
-      throw err;
-    }
-};
-
 module.exports = mongoose.model('User', userModel);

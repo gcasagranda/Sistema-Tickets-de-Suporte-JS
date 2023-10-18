@@ -1,5 +1,3 @@
-const mongoose = require('mongoose');
-const db_mongoose = require('../config/db_mongoose');
 const path = require('path');
 const User = require('../models/userModel');
 const bcrypt = require('bcrypt');
@@ -18,25 +16,31 @@ module.exports = {
             const passwordMatch = await bcrypt.compare(password, dbUser.password);
             if (passwordMatch) {
                 res.status(200).send('Login bem-sucedido');
+                req.session.user = user;
+                res.locals.user = user;
+                res.locals.idUser = dbUser._id;
+                res.locals.role = dbUser.role;
             } else {
             res.status(401).send('Senha incorreta');
             }
         }
     },
-    async getCadastro(req, res){
-        res.sendFile(path.join(__dirname, '.', '../views/cadastro.html'));
-    },
-    async postCadastro(req, res){
-        new User({
-            user: req.body.user,
-            username: req.body.username,
-            password: req.body.password
-        }).save().then(() => {
-            console.log('Usuário cadastrado com sucesso');
-            res.status(200).send('Usuário cadastrado com sucesso');
-        }).catch((err) => {
-            console.log('Erro ao cadastrar usuário: usuário já existente ' + err);
-            res.status(400).send('Erro ao cadastrar usuário: usuário já existente' + err);
-        });
+    async getHome(req, res){
+        if (req.session.user) {
+            if (res.locals.role == 'admin') {
+                res.sendFile(path.join(__dirname, '.', '../views/admin.html'));
+            } else if (res.locals.role == 'user') {
+                res.sendFile(path.join(__dirname, '.', '../views/user.html'));
+            } else if (res.locals.role == 'tech'){
+                res.sendFile(path.join(__dirname, '.', '../views/tech.html'));
+            } else {
+                alert('Erro ao identificar o tipo de usuário');
+                res.status(400).send("Erro ao identificar o tipo de usuário");
+            }
+        } else {
+            alert('Usuário não autenticado');
+            res.status(400).send('Usuário não autenticado');
+            res.redirect('/');
+        }
     }
 }
