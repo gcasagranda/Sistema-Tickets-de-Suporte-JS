@@ -4,7 +4,11 @@ const bcrypt = require('bcrypt');
 
 module.exports = {
     async getLogin(req, res){
-       res.sendFile(path.join(__dirname, '.', '../views/login.html'));
+        if (req.session.user == undefined) {
+            res.sendFile(path.join(__dirname, '.', '../views/login.html'));
+        } else {
+            res.redirect('/home');
+        }
     },
     async postLogin(req, res){
         const user = req.body.user;
@@ -15,11 +19,10 @@ module.exports = {
         } else {
             const passwordMatch = await bcrypt.compare(password, dbUser.password);
             if (passwordMatch) {
-                res.status(200).send('Login bem-sucedido');
                 req.session.user = user;
-                res.locals.user = user;
-                res.locals.idUser = dbUser._id;
-                res.locals.role = dbUser.role;
+                req.session.idUser = dbUser._id;
+                req.session.role = dbUser.role;
+                res.status(200).send('Login bem-sucedido');
             } else {
             res.status(401).send('Senha incorreta');
             }
@@ -27,20 +30,22 @@ module.exports = {
     },
     async getHome(req, res){
         if (req.session.user) {
-            if (res.locals.role == 'admin') {
-                res.sendFile(path.join(__dirname, '.', '../views/admin.html'));
-            } else if (res.locals.role == 'user') {
-                res.sendFile(path.join(__dirname, '.', '../views/user.html'));
-            } else if (res.locals.role == 'tech'){
-                res.sendFile(path.join(__dirname, '.', '../views/tech.html'));
+            if (req.session.role === 'admin') {
+                res.render('admin/home', {layout: 'adminMenu'});
+            } else if (req.session.role === 'user') {
+                res.render('user/home', {layout: 'userMenu'});
+            } else if (req.session.role === 'tech'){
+                res.render('tech/home', {layout: 'techMenu'})
             } else {
-                alert('Erro ao identificar o tipo de usuário');
                 res.status(400).send("Erro ao identificar o tipo de usuário");
             }
         } else {
-            alert('Usuário não autenticado');
             res.status(400).send('Usuário não autenticado');
             res.redirect('/');
         }
+    },
+    async getLogout(req,res){
+        req.session.destroy();
+        res.redirect('/');
     }
 }
