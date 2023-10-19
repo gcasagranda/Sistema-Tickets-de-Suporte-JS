@@ -3,51 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>Cadastro</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-        .container {
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 50px;
-        }
-        h1 {
-            color: #333;
-        }
-        h2 {
-            color: #333;
-        }
-        label {
-            display: block;
-            text-align: left;
-            margin-bottom: 5px;
-        }
-        input[type="text"],
-        input[type="password"] {
-            width: 90%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-        }
-        input[type="submit"] {
-            background-color: #007BFF;
-            color: #fff;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
     <div class="container">
@@ -67,8 +23,8 @@
         </form>
     </div>
     <script>
-        const form = document.getElementById('cadastroForm');
-        form.addEventListener('submit', async (e)=> {
+        const cadastroForm = document.getElementById('cadastroForm');
+        cadastroForm.addEventListener('submit', async (e)=> {
             e.preventDefault();
 
             const username = document.getElementById('username').value;
@@ -97,7 +53,7 @@
             }catch(error){
                 console.error('Erro ao realizar cadastro!', error);
             }
-        })
+        });
     </script>
 </body>
 </html>

@@ -20,6 +20,7 @@ module.exports = {
             const passwordMatch = await bcrypt.compare(password, dbUser.password);
             if (passwordMatch) {
                 req.session.user = user;
+                req.session.name = dbUser.username;
                 req.session.idUser = dbUser._id;
                 req.session.role = dbUser.role;
                 res.status(200).send('Login bem-sucedido');
@@ -31,17 +32,14 @@ module.exports = {
     async getHome(req, res){
         if (req.session.user) {
             if (req.session.role === 'admin') {
-                res.render('admin/home', {layout: 'adminMenu'});
+                res.render('home', {layout: 'adminMenu', name: req.session.name});
             } else if (req.session.role === 'user') {
-                res.render('user/home', {layout: 'userMenu'});
+                res.render('home', {layout: 'userMenu', name: req.session.name});
             } else if (req.session.role === 'tech'){
-                res.render('tech/home', {layout: 'techMenu'})
-            } else {
-                res.status(400).send("Erro ao identificar o tipo de usuário");
+                res.render('home', {layout: 'techMenu', name: req.session.name})
             }
         } else {
-            res.status(400).send('Usuário não autenticado');
-            res.redirect('/');
+            res.status(401).redirect('/?mensagem=Acesso%20proibido.');
         }
     },
     async getLogout(req,res){

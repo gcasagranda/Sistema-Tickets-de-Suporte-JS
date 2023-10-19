@@ -4,8 +4,11 @@ const db_mongoose = require('./config/db_mongoose');
 const routes = require('./routers/route');
 const session = require('express-session');
 const handlebars = require('express-handlebars');
+const path = require('path');
 
 const app = express();
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.engine('handlebars', handlebars.engine());
 app.set('view engine', 'handlebars');
