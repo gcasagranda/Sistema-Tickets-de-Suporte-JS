@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <title>Login</title>
     <link rel="stylesheet" href="../css/style.css">
-    <script src="../js/script.js" defer></script>
 </head>
 <body>
     <div class="container">
@@ -21,39 +20,6 @@
         </form>
         <a href="/cadastro">Ainda não é cadastrado?</a>
     </div>
-    <script>
-        const loginForm = document.getElementById('loginForm');
-        loginForm.addEventListener('submit', async (e)=> {
-            
-            e.preventDefault();
-            const user = document.getElementById('user').value;
-            const password = document.getElementById('password').value;
-
-            const data = {
-                user,
-                password
-            };
-            try {
-                const response = await fetch('/api/login', {
-                    method: 'POST',
-                    body: JSON.stringify(data),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-                if (response.status === 200) {
-                    window.location.href = '/home';
-                } else if (response.status === 401){
-                    alert('Senha incorreta!');
-                } else if (response.status === 400){
-                    alert('Usuário não encontrado!');
-                } else {
-                    alert('Erro ao realizar login!');
-                }
-            }catch(error){
-                console.error('Erro ao realizar login!', error);
-            }
-        });
-    </script>
+    <script src="../js/script.js"></script>
 </body>
 </html>

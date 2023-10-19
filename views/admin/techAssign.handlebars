@@ -1,1 +1,21 @@
-<body></body>
+<center>
+    <div class="container">
+        <h4>Cadastrar Técnico</h4>
+        <form id="techAssignForm">
+            <label for="userSelect">Escolha o username de quem será técnico:</label>
+            <select id="userSelect" name="userSelect">
+                <tr>
+                    <option value="">Selecione:</option>
+                </tr>
+                {{#each users}}
+                <tr>
+                    <option value="{{this._id}}">{{this.user}}</option>
+                </tr>
+                {{/each}}
+            </select>
+            <br><br>
+            <input type="submit" value="Cadastrar">
+        </form>
+    </div>
+</center>
+<script src="../js/script.js"></script>

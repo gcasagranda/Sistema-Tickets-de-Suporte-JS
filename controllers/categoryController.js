@@ -1,7 +1,4 @@
 const Category = require("../models/categoryModel");
-const middlewares = require('../middlewares/middlewares');
-
-const isAdmin = middlewares.isAdmin;
 
 module.exports = {
     async postCategoryCreate(req, res) {
@@ -19,7 +16,7 @@ module.exports = {
             });
         }
     },
-    async getCategoryCreate(req, res, isAdmin) {
+    async getCategoryCreate(req, res) {
         res.render('admin/categoryCreate', {layout: 'adminMenu'});
     }
 }

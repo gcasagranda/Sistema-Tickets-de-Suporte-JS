@@ -5,7 +5,7 @@ const userModel = mongoose.Schema({
     username:{ type: String, required: true },
     user:{ type: String, required: true, unique: true },
     password:{ type: String, required: true },
-    role:{ type: String, required: true, default: 'user', enum: ['user', 'admin', 'technician'] }
+    role:{ type: String, required: true, default: 'user', enum: ['user', 'admin', 'tech'] }
 });
 
 userModel.pre('save', async function(next){

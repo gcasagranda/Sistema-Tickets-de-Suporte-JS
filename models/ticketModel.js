@@ -8,7 +8,8 @@ const ticketModel = mongoose.Schema({
     userId:{ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     technicianId:{ type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     createdAt:{ type: Date, default: Date.now },
-    endedAt:{ type: Date }
+    endedAt:{ type: Date },
+    techCommentary:{ type: String }
 });
 
 ticketModel.pre('save', async function(next){

@@ -1,41 +1,13 @@
-<body>
-    <center>
-        <div class="container">
-            <h4>Criar Categoria</h4>
-            <form id="categoryForm">
-                <label for="categoryName">Nome da categoria:</label>
-                <input type="text" id="categoryName" name="categoryName" placeholder="Nome da categoria">
-                <input type="submit" value="Criar">
-            </form>
-        </div>
-    </center>
-    <script>
-        const categoryForm = document.getElementById('categoryForm');
-        categoryForm.addEventListener('submit', async (e)=> {
-            e.preventDefault();
 
-            const categoryName = document.getElementById('categoryName').value;
-
-            const data = {
-                categoryName
-            };
-            try {
-                const response = await fetch('/api/categoryCreate', {
-                    method: 'POST',
-                    body: JSON.stringify(data),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-                if (response.status === 200) {
-                    alert('Categoria cadastrada com sucesso!');
-                    window.location.href = '/home';
-                } else {
-                    alert('Categoria já existe!');
-                }
-            }catch(error){
-                console.error('Erro ao cadastrar categoria!', error);
-            }
-        });
-    </script>
-</body>
+<center>
+    <div class="container">
+        <h4>Criar Categoria</h4>
+        <form id="categoryForm">
+            <label for="categoryName">Nome da categoria:</label>
+            <input type="text" id="categoryName" name="categoryName" placeholder="Nome da categoria">
+            <br><br>
+            <input type="submit" value="Criar">
+        </form>
+    </div>
+</center>
+<script src="../js/script.js"></script>

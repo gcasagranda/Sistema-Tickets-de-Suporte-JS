@@ -1,13 +1,8 @@
 const Ticket = require('../models/ticketModel');
 const Category = require('../models/categoryModel');
-const middlewares = require('../middlewares/middlewares');
-
-const isAdmin = middlewares.isAdmin;
-const isUser = middlewares.isUser;
-const isTech = middlewares.isTech;
 
 module.exports = {
-    async getTicketCreate (req, res, isUser){
+    async getTicketCreate (req, res){
         const categoryList = await Category.find();
         res.render('user/ticketCreate', {layout: 'userMenu', categories: categoryList.map(category => category.toJSON())});
     },

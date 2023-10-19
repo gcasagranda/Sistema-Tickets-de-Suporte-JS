@@ -17,40 +17,9 @@
         </select>
         <label for="ticketDescription">Descrição:</label>
         <textarea id="ticketDescription" name="ticketDescription" placeholder="Descreva seu problema"></textarea>
+        <br><br>
         <input type="submit" value="Criar">
     </form>
 </div>
 </center>
-<script>
-const ticketForm = document.getElementById('ticketForm');
-ticketForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const ticketTitle = document.getElementById('ticketTitle').value;
-    const ticketCategory = document.getElementById('ticketCategory').value;
-    const ticketDescription = document.getElementById('ticketDescription').value;
-
-    const data = {
-        ticketTitle,
-        ticketCategory,
-        ticketDescription
-    };
-    try {
-        const response = await fetch('/api/ticketCreate', {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        if (response.status === 200) {
-            alert('Ticket cadastrado com sucesso!');
-            window.location.href = '/home';
-        } else {
-            alert('Erro ao cadastrar ticket!');
-        }
-    } catch (error) {
-        console.error('Erro ao cadastrar ticket!', error);
-    }
-});
-</script>
+<script src="../js/script.js"></script>
