@@ -1,1 +1,68 @@
-<script src="../js/script.js"></script>
+<div class="container">
+    <form id="ticketAssign">
+        <label for="ticket">Selecione um ticket:</label>
+        <select id="ticket" name="ticket">
+            <tr>
+                <option value="">Selecione um ticket</option>
+            </tr>
+            {{#each tickets}}
+                <tr>
+                    <option value="{{this._id}}">
+                        Categoria: {{{this.category.categoryName}}} / 
+                        Título: {{{this.title}}} / 
+                        Data de criação: {{{this.createdAt}}}
+                    </option>
+                </tr>
+            {{/each}}
+        </select>
+        <label for="techId">Selecione um técnico:</label>
+        <select id="techId" name="techId">
+            <tr>
+                <option value="">Selecione um técnico</option>
+            </tr>
+            {{#each techs}}
+                <tr>
+                    <option value="{{this._id}}">
+                        Usuário: {{{this.user}}} / 
+                        Nome: {{{this.username}}}
+                    </option>
+                </tr>
+            {{/each}}
+        </select>
+        <input type="submit" value="Atribuir">
+    </form>
+</div>
+<script>
+    const ticketAssign = document.getElementById('ticketAssign');
+    ticketAssign.addEventListener('submit', async (e)=>{
+        e.preventDefault();
+
+        const ticket = document.getElementById('ticket').value;
+        const techId = document.getElementById('techId').value;
+
+        if (!ticket || !techId){
+            alert('Preencha todos os campos!');
+        }
+
+        const data = {
+            ticket,
+            techId
+        };
+
+        try {
+            const response = await fetch('/api/ticketAssign', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {'Content-Type': 'application/json'}
+            });
+            if (response.status === 200){
+                alert('Ticket atribuído com sucesso!');
+                window.location.href = '/home';
+            } else {
+                alert('Erro ao atribuir ticket!');
+            }
+        } catch(err){
+            console.log('Erro ao atribuir ticket a técnico', err);
+        };
+    });
+</script>

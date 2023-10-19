@@ -18,4 +18,36 @@
         </form>
     </div>
 </center>
-<script src="../js/script.js"></script>
+<script>
+    const techAssignForm = document.getElementById('techAssignForm');
+    techAssignForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const techId = document.getElementById('userSelect').value;
+        if (techId === ""){
+            alert('Selecione um usuário!');
+        }
+
+        const data = {
+            techId
+        };
+
+        try {
+            const response = await fetch('/api/techAssign', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (response.status === 200) {
+                alert('Técnico cadastrado com sucesso!');
+                window.location.href = '/home';
+            } else {
+                alert('Erro ao cadastrar técnico!');
+            }
+        } catch (error) {
+            console.error('Erro ao cadastrar técnico!', error);
+        } 
+    });
+</script>

@@ -1,7 +1,7 @@
 const User = require('../models/userModel');
 
 module.exports = {
-    async postTechAssign(req, res, isAdmin){
+    async postTechAssign(req, res){
         const techId = req.body.techId;
         const tech = await User.updateOne({ _id: techId }, { role: 'tech' });
         if (tech.modifiedCount != 1){

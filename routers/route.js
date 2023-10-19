@@ -20,5 +20,7 @@ route.post("/api/ticketCreate", middleware.isUser, ticketController.postTicketCr
 route.get("/ticketCreate", middleware.isUser, ticketController.getTicketCreate);
 route.post("/api/techAssign", middleware.isAdmin, userController.postTechAssign);
 route.get("/techAssign", middleware.isAdmin, userController.getTechAssign);
+route.post("/api/ticketAssign", middleware.isAdmin, ticketController.postTicketAssign);
+route.get("/ticketAssign", middleware.isAdmin, ticketController.getTicketAssign);
 
 module.exports = route;

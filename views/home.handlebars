@@ -1,4 +1,11 @@
     <center>
         <h4>Bem vindo(a) {{{name}}}! Selecione uma opção acima.</h4>
     </center>
-    <script src="../js/script.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const mensagem = urlParams.get('mensagem');
+
+        if (mensagem) {
+            alert(decodeURIComponent(mensagem));
+        }
+    </script>

@@ -10,4 +10,32 @@
         </form>
     </div>
 </center>
-<script src="../js/script.js"></script>
+<script>
+    const categoryForm = document.getElementById('categoryForm');
+    categoryForm.addEventListener('submit', async (e)=> {
+        e.preventDefault();
+
+        const categoryName = document.getElementById('categoryName').value;
+
+        const data = {
+            categoryName
+        };
+        try {
+            const response = await fetch('/api/categoryCreate', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (response.status === 200) {
+                alert('Categoria cadastrada com sucesso!');
+                window.location.href = '/home';
+            } else {
+                alert('Categoria já existe!');
+            }
+        }catch(error){
+            console.error('Erro ao cadastrar categoria!', error);
+        }
+    });
+</script>

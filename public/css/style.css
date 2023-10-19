@@ -5,6 +5,13 @@ body {
     padding: 0;
     text-align: center;
 }
+select{
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
 .container {
     max-width: 500px;
     margin: 0 auto;
