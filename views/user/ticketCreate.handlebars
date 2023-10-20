@@ -24,8 +24,9 @@
 </center>
 <script>
     const ticketForm = document.getElementById('ticketForm');
-    ticketForm.addEventListener('submit', async (e) => {
+    ticketForm.addEventListener('submit', async (e) => {  
         e.preventDefault();
+
 
         const ticketTitle = document.getElementById('ticketTitle').value;
         const ticketCategory = document.getElementById('ticketCategory').value;
@@ -48,7 +49,7 @@
                 alert('Ticket cadastrado com sucesso!');
                 window.location.href = '/home';
             } else {
-                alert('Erro ao cadastrar ticket!');
+                alert('Erro ao cadastrar ticket!');x
             }
         } catch (error) {
             console.error('Erro ao cadastrar ticket!', error);

@@ -9,7 +9,9 @@ const ticketModel = mongoose.Schema({
     techId:{ type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     createdAt:{ type: Date, default: Date.now },
     endedAt:{ type: Date },
-    techCommentary:{ type: String }
+    commentary:[{ content: {type: String},
+                  createdAt: {type: Date},
+                  }]
 });
 
 ticketModel.pre('save', async function(next){

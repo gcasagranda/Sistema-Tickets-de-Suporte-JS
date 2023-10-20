@@ -1,0 +1,75 @@
+<center>
+<div class="container">
+    <h4>Resolver Tickets</h4>
+    <form id="resolveTicketForm">
+        <label for="ticketSelect">Selecione o ticket que deseja resolver:</label>
+        <select id="ticketSelect">
+            <tr>
+                <option value="">Selecione um ticket</option>
+            </tr>
+            {{#each tickets}}
+                <tr>
+                    <option value="{{this._id}}" data-description="{{this.description}}">
+                        Categoria: {{{this.category.categoryName}}} / 
+                        Título: {{{this.title}}} / 
+                        Data de criação: {{{this.createdAt}}}
+                    </option>
+                </tr>
+            {{/each}}
+        </select>
+        <label for="ticketDescription">Descrição do ticket:</label>
+        <textarea id="ticketDescription" name="ticketDescription" readonly></textarea>
+        <label for="commentary">Comentário sobre o problema:</label>
+        <textarea id="commentary" name="commentary" placeholder="Escreva um novo comentário sobre o problema"></textarea>
+        <label>Encerrar ticket?</label>
+        <label for="true">Sim</label>
+        <input type="radio" id="true" name="closeTicket" value="true">
+        <label for="false">Não</label>
+        <input type="radio" id="false" name="closeTicket" value="false">
+        <br><br>
+        <input type="submit" value="Atualizar ticket">
+    </form>
+</div>
+</center>
+<script>
+    const ticketForm = document.getElementById('resolveTicketForm');
+    const ticketSelect = document.getElementById('ticketSelect');
+    const ticketDescription = document.getElementById('ticketDescription');
+    ticketSelect.addEventListener('change', function() {
+        const selectedOption = ticketSelect.options[ticketSelect.selectedIndex];
+        const description = selectedOption.getAttribute('data-description');
+        ticketDescription.value = description;
+    });
+
+    resolveTicketForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const ticketId = document.getElementById('ticketSelect').value;
+        const commentary = document.getElementById('commentary').value;
+        const closeTicket = document.querySelector('input[name="closeTicket"]:checked').value;
+
+        data = {
+            ticketId,
+            commentary,
+            closeTicket
+        };
+
+        try {
+            const response = await fetch('/api/resolveTicket', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (response.status === 200) {
+                alert('Ticket atualizado com sucesso!');
+                window.location.href = '/home';
+            } else {
+                alert('Erro ao atualizar ticket!');
+            }
+        } catch (error) {
+            console.error('Erro ao atualizar ticket!', error);
+        }
+    });
+</script>

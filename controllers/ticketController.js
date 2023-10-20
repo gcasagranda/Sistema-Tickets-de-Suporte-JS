@@ -42,5 +42,30 @@ module.exports = {
             console.log('Ticket atribuído com sucesso');
             res.status(200).send('Ticket atribuído com sucesso');
         }
+    },
+    async getResolveTicket(req, res) {
+        const ticketList = await Ticket.find({status: 'assigned', techId: req.session.idUser}).populate('category');
+        res.render('tech/resolveTicket', 
+            {layout: 'techMenu',
+            tickets: ticketList.map(ticket => ticket.toJSON())});
+    },
+    async postResolveTicket (req, res) {
+        const ticketId = req.body.ticketId;
+        const newCommentary = req.body.commentary;
+        commentaryObject = {content: newCommentary, createdAt: Date.now()};
+        const closeTicket = req.body.closeTicket;
+        if (closeTicket == 'true'){
+            var ticket = await Ticket.updateOne({ _id: ticketId },
+                { status: 'closed', $push: {commentary: commentaryObject}, endedAt: Date.now() }, {upsert: true});
+        } else if (closeTicket == 'false'){
+            var ticket = await Ticket.updateOne({ _id: ticketId }, { $push: {commentary: commentaryObject} }, {upsert: true});
+        }
+        if (ticket.modifiedCount != 1){
+            console.log('Erro ao atualizar ticket');
+            res.status(400).send('Erro ao atualizar ticket');
+        } else {    
+            console.log('Ticket atualizado com sucesso');
+            res.status(200).send('Ticket atualizado com sucesso');
+        }
     }
 }
