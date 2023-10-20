@@ -24,5 +24,6 @@ route.post("/api/ticketAssign", middleware.isAdmin, ticketController.postTicketA
 route.get("/ticketAssign", middleware.isAdmin, ticketController.getTicketAssign);
 route.post("/api/resolveTicket", middleware.isTech, ticketController.postResolveTicket);
 route.get("/resolveTicket", middleware.isTech, ticketController.getResolveTicket);
+route.get("/ticketsList", middleware.isUser, ticketController.getTicketsList);
 
 module.exports = route;

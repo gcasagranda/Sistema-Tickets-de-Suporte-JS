@@ -1,0 +1,42 @@
+<div class="table-container">
+    <h4>Meus Tickets</h4>
+    <table id="tickets">
+        <thead>
+            <th>Título</th>
+            <th>Status</th>
+            <th>Descrição</th>
+            <th>Comentários do técnico</th>
+        </thead>
+        <tbody>
+            {{#each tickets}}
+            <tr>
+                <td>{{this.title}}</td>
+                <td id="status" data-status="{{this.status}}"></td>
+                <td>{{this.description}}</td>
+                <td>
+                    <table id="commentarys">
+                        {{#each commentary}}
+                        <tr>
+                            <td>{{this.createdAt}} - <br>{{this.content}}</td>
+                        </tr>
+                        {{/each}}
+                    </table>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+<script>
+    const status = document.querySelectorAll('#status');
+    status.forEach((status) => {
+        const statusValue = status.getAttribute('data-status');
+        if (statusValue === 'open') {
+            status.innerHTML = 'Aberto';
+        } else if (statusValue === 'assigned') {
+            status.innerHTML = 'Em progresso';
+        } else if (statusValue === 'closed') {
+            status.innerHTML = 'Fechado';
+        }
+    });
+</script>

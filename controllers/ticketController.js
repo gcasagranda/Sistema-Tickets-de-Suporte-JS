@@ -67,5 +67,10 @@ module.exports = {
             console.log('Ticket atualizado com sucesso');
             res.status(200).send('Ticket atualizado com sucesso');
         }
+    },
+    async getTicketsList (req, res) {
+        const ticketList = await Ticket.find({userId: req.session.idUser});
+        res.render('user/ticketsList', 
+            {layout: 'userMenu', tickets: ticketList.map(ticket => ticket.toJSON())});
     }
 }

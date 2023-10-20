@@ -21,6 +21,29 @@ select{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-top: 50px;
 }
+.table-container{
+    max-width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+}
+.table-container #tickets, .table-container #tickets th, .table-container #tickets td{
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 8px;
+
+}
+th {
+    background-color: #f2f2f2; 
+    font-weight: bold;
+}
+#commentarys{
+    border: 0px;
+    padding: 8px;
+}
 h1 {
     color: #333;
 }
